@@ -80,9 +80,8 @@ public class AlturaAlumnoTest {
         arrayAl[0]=1.5;
         arrayAl[1]=1.5;
         arrayAl[2]=1.5;
-
+        //Estoy pasando indice 3 cuando solo hay 2
         AlturaAlumno.modificaAltura(arrayAl,posicion,alturaNueva);
-        //System.out.println(Arrays.toString(arrayAl));
 
         // la comprobacion de que no se ha realizado la actualizacion
         for (int i=0;i<arrayAl.length;i++){
@@ -92,15 +91,126 @@ public class AlturaAlumnoTest {
         double alturaNueva1=1.78;
         int posicion1=1;
         AlturaAlumno.modificaAltura(arrayAl,posicion1,alturaNueva1);
-        //System.out.println(Arrays.toString(arrayAl));
 
         assertEquals(arrayAl[posicion1],alturaNueva1);
     }
     /* */
     @Test
     void buscaNombreTest(){
+        final  String[] array=new String[3];
+        array[0]="Jose";
+        array[1]= "Paco";
+        array[2]="María";
+        String nombre="María";
+        int posicion=2;
+
+        int indiceRetornado= AlturaAlumno.buscaNombre(array, nombre);
+
+        assertEquals(posicion,indiceRetornado);
+
+        nombre="Julio";
+        posicion=-1;
+
+        indiceRetornado= AlturaAlumno.buscaNombre(array, nombre);
+        assertEquals(posicion,indiceRetornado);
 
     }
+    @Test
+    void mostrarTest(){
+        //aqui pruebo que muestra por pantalla los datos correctamente
+        final  String[] array=new String[3];
+        array[0]="Jose";
+        array[1]= "Paco";
+        array[2]="María";
+        final  double[] arrayAl=new double[3];
+        arrayAl[0]=1.8;
+        arrayAl[1]=1.65;
+        arrayAl[2]=1.45;
+        AlturaAlumno.mostrar(array, arrayAl);
 
+        //aqui pruebo que muestra por pantalla los datos correctamente añadiendo un null al String ya que double no permite el null
+        final  String[] array1=new String[3];
+        array1[0]="Jose";
+        array1[1]= null;
+        array1[2]="María";
+        final  double[] arrayAl1=new double[3];
+        arrayAl1[0]=1.8;
+        arrayAl1[1]=1.65;
+        arrayAl1[2]=1.45;
+        AlturaAlumno.mostrar(array1, arrayAl1);
+
+        // aqui pruebo arrays vacios
+        final  String[] array2=new String[1];
+        final  double[] arrayAl2=new double[1];
+
+        AlturaAlumno.mostrar(array2, arrayAl2);
+
+    }
+    /*hay que probar si devuelve el array vacio cuando le entra vacio y si devuelve el valor correcto */
+    @Test
+    void calculaMaximoTest(){
+        //pruebo las posiciones mas conflictivas: la primera y la ultima
+        double posicion=0.0;
+        double valor=1.8;
+        final  double[] arrayAl=new double[3];
+        arrayAl[0]=1.8;
+        arrayAl[1]=1.65;
+        arrayAl[2]=1.45;
+        double [] max=AlturaAlumno.calculaMaximo( arrayAl);
+
+        assertEquals(posicion, max[0]);
+
+        assertEquals(valor,max[1]);
+
+        posicion=2.0;
+        valor=1.95;
+        final  double[] arrayAl1=new double[3];
+        arrayAl1[0]=1.8;
+        arrayAl1[1]=1.65;
+        arrayAl1[2]=1.95;
+        double [] max1=AlturaAlumno.calculaMaximo( arrayAl1);
+        assertEquals(posicion, max1[0]);
+
+        assertEquals(valor,max1[1]);
+
+    // y ahora cualquier otra posicion
+        posicion=2.0;
+        valor=1.95;
+        final  double[] arrayAl2=new double[4];
+        arrayAl2[0]=1.8;
+        arrayAl2[1]=1.65;
+        arrayAl2[2]=1.95;
+        arrayAl2[3]=1.65;
+        double [] max2=AlturaAlumno.calculaMaximo( arrayAl2);
+        assertEquals(posicion, max2[0]);
+
+        assertEquals(valor,max2[1]);
+        // y ahora compruebo que devuelve el array vacio cuando le entra uno vacio
+        posicion=0.0;
+        valor=0.0;
+        final  double[] arrayAl3=new double[0];
+        double [] max3=AlturaAlumno.calculaMaximo( arrayAl3);
+        assertEquals(posicion, max3[0]);
+
+        assertEquals(valor,max3[1]);
+    }
+    @Test
+    void calculaMediaTest(){
+        // hay que controlar que si el array entra vacio no divide por 0 y devuelve 0
+        double resultado=0;
+        final  double[] arrayAl=new double[0];
+        double resuldev=AlturaAlumno.calculaMedia( arrayAl);
+        assertEquals(resultado, resuldev);
+
+        // ahora controlo que devuelve la media
+        resultado=1.6333333333333335;
+        final  double[] arrayAl1=new double[3];
+        arrayAl1[0]=1.8;
+        arrayAl1[1]=1.65;
+        arrayAl1[2]=1.45;
+        double resuldev1=AlturaAlumno.calculaMedia( arrayAl1);
+        assertEquals(resultado, resuldev1);
+
+    }
 
 }

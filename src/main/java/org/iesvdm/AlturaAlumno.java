@@ -210,7 +210,6 @@ public class AlturaAlumno { // Recorrer dos arrays con la misma longitud
         }
     }
 
-
     /**
      * Calcula el valor maximo de un array y su posicion
      * y devuelve ambos valores en un array
