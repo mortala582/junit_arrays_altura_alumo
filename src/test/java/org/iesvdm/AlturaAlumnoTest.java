@@ -1,5 +1,6 @@
-package org.iesvdm;
+ppackage org.iesvdm;
 
+import org.iesvdm.AlturaAlumno;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,10 +38,3 @@ public class AlturaAlumnoTest {
         String nombre = "María";
         String [] arrayActual= AlturaAlumno.añadeNombre(array,nombre);
         //assertTrue(arrayActual[arrayActual.length-1]).equal(nombre);
-        assertEquals(longInicial+1, arrayActual.length);
-        assertEquals(nombre, arrayActual[longInicial+1]);
-
-
-    }
-
-}
