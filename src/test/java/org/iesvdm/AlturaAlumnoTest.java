@@ -122,13 +122,6 @@ public class AlturaAlumnoTest {
     }
     @Test
     void mostrarTest() {
-        /* Comprueba que si no coinciden en la misma cantidad ambos arrays, ponemos el array de nombre con un occurs menos que
-         * altura ya que en el proceso toma la longitud de nombre para hacer el proceso de mostrar pero nos da error si la longitud
-         * del array del nombre es menor que la de la altura*/
-
-        final String[] array = {"Jose", "Paco", "María"};
-
-        final double[] arrayAl = {1.8, 1.45};
 
         /*aqui pruebo que muestra por pantalla los datos correctamente añadiendo un null al String ya que double
          * no permite el null*/
@@ -218,3 +211,4 @@ public class AlturaAlumnoTest {
     }
 
 }
+//Fin, ultima version
