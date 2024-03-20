@@ -46,7 +46,7 @@ public class AlturaAlumnoTest {
 
 
         assertEquals(longInicial+1, arrayActual.length);
-        assertEquals(nombre, arrayActual[longInicial+1]);
+        assertEquals(nombre, arrayActual[longInicial]);
     }
     /* aqui valido que se realiza correctamente la inicializacion de la tabla de alturas, la longitud del array de nombres
     *  tiene que ser igual al de alturas y ademas, valido que todos los elementos de la tabla tengan el valor por defecto (1.5) */
@@ -101,47 +101,48 @@ public class AlturaAlumnoTest {
         array[0]="Jose";
         array[1]= "Paco";
         array[2]="María";
-        String nombre="María";
-        int posicion=2;
 
-        int indiceRetornado= AlturaAlumno.buscaNombre(array, nombre);
+        assertEquals(2,AlturaAlumno.buscaNombre(array, "Maria"));
 
-        assertEquals(posicion,indiceRetornado);
+    // pruebo elemento que no existe
 
-        nombre="Julio";
-        posicion=-1;
-
-        indiceRetornado= AlturaAlumno.buscaNombre(array, nombre);
-        assertEquals(posicion,indiceRetornado);
+        assertEquals(-1,AlturaAlumno.buscaNombre(array, null));
 
     }
     @Test
-    void mostrarTest(){
+    void mostrarTest() {
         //aqui pruebo que muestra por pantalla los datos correctamente
-        final  String[] array=new String[3];
-        array[0]="Jose";
-        array[1]= "Paco";
-        array[2]="María";
-        final  double[] arrayAl=new double[3];
-        arrayAl[0]=1.8;
-        arrayAl[1]=1.65;
-        arrayAl[2]=1.45;
-        AlturaAlumno.mostrar(array, arrayAl);
+        final String[] array = {"Jose", "Paco", "María"};
+
+        final double[] arrayAl = {1.8, 1.65, 1.45};
+
+        assertDoesNotThrow(() -> {
+            AlturaAlumno.mostrar(array, arrayAl);
+        });
+    }
+    @Test
+    void mostrarTestAFallo() {
+        final String[] array = {"Jose", "Paco", "María"};
+
+        final double[] arrayAl = {1.8, 1.45};
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            AlturaAlumno.mostrar(array, arrayAl);
+        });
 
         //aqui pruebo que muestra por pantalla los datos correctamente añadiendo un null al String ya que double no permite el null
-        final  String[] array1=new String[3];
-        array1[0]="Jose";
-        array1[1]= null;
-        array1[2]="María";
-        final  double[] arrayAl1=new double[3];
-        arrayAl1[0]=1.8;
-        arrayAl1[1]=1.65;
-        arrayAl1[2]=1.45;
+        final String[] array1 = new String[3];
+        array1[0] = "Jose";
+        array1[1] = null;
+        array1[2] = "María";
+        final double[] arrayAl1 = new double[3];
+        arrayAl1[0] = 1.8;
+        arrayAl1[1] = 1.65;
+        arrayAl1[2] = 1.45;
         AlturaAlumno.mostrar(array1, arrayAl1);
 
         // aqui pruebo arrays vacios
-        final  String[] array2=new String[1];
-        final  double[] arrayAl2=new double[1];
+        final String[] array2 = new String[1];
+        final double[] arrayAl2 = new double[1];
 
         AlturaAlumno.mostrar(array2, arrayAl2);
 
@@ -152,10 +153,8 @@ public class AlturaAlumnoTest {
         //pruebo las posiciones mas conflictivas: la primera y la ultima
         double posicion=0.0;
         double valor=1.8;
-        final  double[] arrayAl=new double[3];
-        arrayAl[0]=1.8;
-        arrayAl[1]=1.65;
-        arrayAl[2]=1.45;
+        final  double[] arrayAl={1.8,1.65,1.45};
+
         double [] max=AlturaAlumno.calculaMaximo( arrayAl);
 
         assertEquals(posicion, max[0]);
@@ -164,10 +163,8 @@ public class AlturaAlumnoTest {
 
         posicion=2.0;
         valor=1.95;
-        final  double[] arrayAl1=new double[3];
-        arrayAl1[0]=1.8;
-        arrayAl1[1]=1.65;
-        arrayAl1[2]=1.95;
+        final  double[] arrayAl1={1.8,1.65,1.95};
+
         double [] max1=AlturaAlumno.calculaMaximo( arrayAl1);
         assertEquals(posicion, max1[0]);
 
@@ -176,15 +173,13 @@ public class AlturaAlumnoTest {
     // y ahora cualquier otra posicion
         posicion=2.0;
         valor=1.95;
-        final  double[] arrayAl2=new double[4];
-        arrayAl2[0]=1.8;
-        arrayAl2[1]=1.65;
-        arrayAl2[2]=1.95;
-        arrayAl2[3]=1.65;
+        final  double[] arrayAl2={1.8,1.65,1.95,1.65};
+
         double [] max2=AlturaAlumno.calculaMaximo( arrayAl2);
         assertEquals(posicion, max2[0]);
 
         assertEquals(valor,max2[1]);
+
         // y ahora compruebo que devuelve el array vacio cuando le entra uno vacio
         posicion=0.0;
         valor=0.0;
